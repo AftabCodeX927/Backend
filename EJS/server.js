@@ -9,8 +9,13 @@ app.set("views", path.join(__dirname, "/views"));
 
 app.get("/",(req,res)=>{
     res.render("home.ejs");
-})
+});
+
+app.get("/rolldice",(req,res)=>{
+    let diceValue = Math.floor(Math.random()* 6) + 1;
+    res.render("rollDice.ejs",{ diceValue });
+});
 
 app.listen(port,()=>{
-    console.log(`my server start on this port ${port}`);
+    console.log(`my server start on this port http://localhost:3000/`);
 })
