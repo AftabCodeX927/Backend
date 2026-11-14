@@ -7,15 +7,26 @@ const port = 3000;
 app.set("view engine","ejs");
 app.set("views", path.join(__dirname, "/views"));
 
+app.use(express.static(path.join(__dirname, "public")));
+
 app.get("/",(req,res)=>{
     res.render("home.ejs");
 });
 
 app.get("/ig/:username",(req,res)=>{
+    // const followers = ["Adam","Vinay","Rahul","Akansha","Great Khali","Rock Lessaner"];
+    // res.render("instagram.ejs",{username, followers});
     let { username } = req.params;
-    res.render("instagram.ejs",{username});
+
+    const InstaData = require("./data.json")
+    const data = InstaData[username];
+    if(data){
+        res.render("instagram.ejs",{data});
+    } else(
+        res.render("error.ejs",{data})
+    )
     
-})
+});
 
 
 app.get("/rolldice",(req,res)=>{
